@@ -83,9 +83,9 @@ export default function Cart() {
               <span>R$ {cartTotal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
             </div>
 
-            <button className="btn-beige" style={{ width: '100%', marginTop: '30px', padding: '20px' }}>
-              FINALIZAR COMPRA
-            </button>
+            <Link to="/checkout" className="btn-beige" style={{ textDecoration: 'none', textAlign: 'center', display: 'block' }}>
+            FINALIZAR COMPRA
+            </Link>
 
             <div className="benefits mt-8" style={{ marginTop: '30px', fontSize: '13px', color: '#444' }}>
               <div className="flex items-center gap-3 mb-3"><Truck size={16}/> Frete grátis acima de R$200</div>
