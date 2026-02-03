@@ -4,6 +4,7 @@ import { Footer } from '../components/layout/Footer';
 import '../styles/ProductDetail.css';
 import { useCart } from '../context/CartContext';
 
+import { useParams, useNavigate } from 'react-router-dom';
 const PRODUCT_IMAGES = [
   "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800",
   "https://images.unsplash.com/photo-1598808503744-3ede29946011?w=800",
@@ -15,6 +16,20 @@ export default function ProductDetail() {
   const [selectedSize, setSelectedSize] = useState('P');
   const [activeTab, setActiveTab] = useState('desc');
   const { addToCart } = useCart();
+  const navigate = useNavigate();
+
+  // Objeto do produto para o carrinho
+  const currentProduct = {
+    id: 1, // No futuro, isso virá do useParams()
+    name: "Tailored Blazer",
+    price: 720.00,
+    imageUrl: selectedImage,
+  };
+
+  const handleAddToCart = () => {
+    addToCart(currentProduct, selectedSize); // 3. Dispara a adição
+    navigate('/cart');
+  };
 
   // Gatilho de animação ao trocar imagem
   const handleImageChange = (img: string) => {
@@ -80,12 +95,11 @@ export default function ProductDetail() {
           </div>
 
             <button 
-              className="btn-add-cart" 
-              onClick={() => addToCart({ id: 1, name: "Tailored Blazer", price: 720, imageUrl: selectedImage }, selectedSize)}
-            >
+              className="btn-add-cart py-4 bg-[#D4C3A3] font-semibold tracking-widest hover:brightness-95 transition-all"
+              onClick={handleAddToCart}
+              >
               ADICIONAR AO CARRINHO
             </button>
-
           <div className="benefits mt-8 space-y-4">
             <div className="flex items-center gap-3 text-sm text-gray-700"><Truck size={18}/> Frete grátis acima de R$200</div>
             <div className="flex items-center gap-3 text-sm text-gray-700"><RotateCcw size={18}/> Devolução gratuita em até 30 dias</div>

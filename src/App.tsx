@@ -9,6 +9,7 @@ import Catalog from './pages/Catalog';
 import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart'; 
 
+
 function App() {
   return (
     <CartProvider>
