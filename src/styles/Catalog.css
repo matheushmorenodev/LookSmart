@@ -1,0 +1,240 @@
+/* Layout de Duas Colunas (Filtros + Produtos) */
+.catalog-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 50px 20px;
+  display: flex;
+  gap: 60px; /* Espaço entre sidebar e grid */
+}
+
+/* Cabeçalho "STORE" centralizado */
+.catalog-header {
+  text-align: center;
+  padding: 60px 0 30px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.catalog-header h1 {
+  font-size: 42px;
+  font-weight: 400;
+  letter-spacing: 6px;
+  margin-bottom: 20px;
+}
+
+/* Sidebar de Filtros */
+.sidebar-filters {
+  width: 220px;
+  flex-shrink: 0;
+}
+
+.filter-section {
+  margin-bottom: 45px;
+}
+
+.filter-section h3 {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.filter-main-title {
+  font-size: 24px;
+  letter-spacing: 2px;
+  margin-bottom: 40px;
+  font-weight: 500;
+}
+
+.filter-list {
+  list-style: none;
+  padding: 0;
+}
+
+.filter-list li {
+  font-size: 15px;
+  color: #444;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+/* Tamanhos e Cores */
+.size-grid {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.size-btn {
+  width: 35px;
+  height: 35px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 50%;
+  font-size: 11px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.color-grid {
+  display: flex;
+  gap: 15px;
+}
+
+.color-circle {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 1px solid #eee;
+  cursor: pointer;
+}
+
+/* Grid de Produtos */
+.main-content {
+  flex-grow: 1;
+}
+
+.product-grid-catalog {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px 30px;
+}
+
+.product-image-wrapper {
+  position: relative;
+  background-color: #f9f9f9;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+}
+
+
+.product-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.product-card {
+  cursor: pointer;
+}
+
+.product-card:hover img {
+  transform: scale(1.05);
+}
+
+.product-info {
+  margin-top: 15px;
+  text-align: left;
+}
+
+.product-info h4 {
+  font-size: 15px;
+  font-weight: 400;
+  margin-bottom: 5px;
+}
+
+.product-info p {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Botão Carregar Mais */
+.btn-load-more {
+  display: block;
+  margin: 60px auto;
+  padding: 14px 50px;
+  background: white;
+  border: 1px solid #000;
+  border-radius: 30px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-load-more:hover {
+  background: #000;
+  color: #fff;
+}
+
+.wishlist-icon {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  color: #000;
+}
+
+.btn-load-more:hover {
+  background: #f5f5f5;
+}
+
+/* Estados Ativos */
+.filter-list li.active {
+  font-weight: 700;
+  text-decoration: underline;
+  color: #000;
+}
+.filter-list li.active-filter {
+  font-weight: bold;
+  text-decoration: underline;
+  color: #000;
+}
+
+.size-btn.active {
+  background-color: #000 !important;
+  color: #fff !important;
+  border-color: #000 !important;
+}
+
+.size-btn.active-size {
+  background-color: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+/* Melhoria no cursor */
+.filter-list li, .size-btn, .color-circle {
+  border: 1px solid #eee;
+  cursor: pointer;
+  transition: transform 0.2s;
+  transition: all 0.2s ease;
+}
+.color-circle.active {
+  transform: scale(1.2);
+  border: 2px solid #000;
+}
+
+.filter-list li:hover {
+  padding-left: 5px;
+}
+
+.price-slider {
+  width: 100%;
+  accent-color: #000;
+  cursor: pointer;
+}
+.sale-text {
+  color: #999;
+}
+
+/* Estilos Gerais do Wrapper */
+.catalog-wrapper {
+  background-color: #fff;
+  min-height: 100vh;
+}
+
+.catalog-subnav {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: #1a1a1a;
+}
