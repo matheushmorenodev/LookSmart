@@ -1,0 +1,114 @@
+/* src/styles/Success.css */
+.success-page-wrapper {
+  max-width: 1100px;
+  margin: 80px auto;
+  padding: 0 20px;
+}
+
+.success-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.success-icon-circle {
+  width: 70px;
+  height: 70px;
+  background-color: #D4C3A3;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 25px;
+}
+
+.success-header h1 {
+  font-size: 28px;
+  letter-spacing: 4px;
+  font-weight: 400;
+  margin-bottom: 15px;
+}
+
+.success-subtext {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.order-details-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 80px;
+}
+
+.details-column-title {
+  font-size: 14px;
+  letter-spacing: 2px;
+  margin-bottom: 25px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+/* Coluna Esquerda */
+.success-item-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.success-item-name h4 { font-size: 15px; font-weight: 400; }
+.success-item-name p { font-size: 12px; color: #999; margin-top: 4px; }
+
+.success-calculations { margin-top: 30px; }
+.calc-row { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 10px; }
+.calc-total { display: flex; justify-content: space-between; font-size: 18px; font-weight: 700; border-top: 1px solid #eee; padding-top: 20px; margin-top: 10px; }
+
+.success-actions { display: flex; flex-direction: column; gap: 12px; margin-top: 40px; }
+.btn-primary-beige { background: #D4C3A3; border: none; padding: 18px; letter-spacing: 2px; font-weight: 600; cursor: pointer; }
+.btn-outline-dark { border: 1px solid #eee; background: none; padding: 18px; letter-spacing: 2px; text-decoration: none; color: #000; font-size: 12px; text-align: center; }
+
+/* Sidebar Direita (A que estava faltando) */
+.shipping-info-card {
+  background-color: #FBF9F7;
+  padding: 35px;
+}
+
+.user-address h4 { font-size: 15px; margin-bottom: 8px; }
+.user-address p { font-size: 13px; color: #666; line-height: 1.5; }
+.address-total { font-weight: 700; margin-top: 15px; font-size: 15px; }
+
+.mini-product-previews {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.mini-preview-item {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.mini-img {
+  width: 60px;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  background: #fff;
+}
+
+.mini-name { font-size: 13px; font-weight: 600; }
+.mini-meta { font-size: 11px; color: #999; }
+.mini-price { font-size: 13px; margin-top: 3px; }
+
+.success-footer-badges, .sidebar-badges {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 12px;
+  color: #777;
+}
+
+.badge { display: flex; align-items: center; gap: 8px; }

@@ -5,6 +5,19 @@ import { Truck, RotateCcw, ShieldCheck, ChevronLeft, CreditCard } from 'lucide-r
 import '../styles/Checkout.css';
 
 export default function Checkout() {
+  const { setCustomerInfo } = useCart();
+  // Criamos um estado local para o formulário
+  const [formData, setFormData] = useState({
+    nome: '', email: '', endereco: '', cidade: '', cep: '', telefone: '',
+  });
+
+  const handleNextStep = (e: React.FormEvent) => {
+    e.preventDefault();
+    setCustomerInfo(formData); // Salva no contexto global
+    setStep(2);
+  };
+
+
   const navigate = useNavigate();
   const { cart, cartTotal } = useCart();
   
@@ -23,7 +36,7 @@ export default function Checkout() {
   const handleFinalizeOrder = () => {
     // Aqui você integraria com um backend futuramente
     alert("Pedido finalizado com sucesso!");
-    navigate('/');
+    navigate('/success');
   };
 
   return (
@@ -46,34 +59,89 @@ export default function Checkout() {
           <div className="step-content-container">
             
             {/* ETAPA 1: INFORMAÇÕES DE ENVIO */}
-            {step === 1 && (
+          {step === 1 && (
               <div className="step-fade-in">
                 <h2 className="step-subtitle">INFORMAÇÕES DE ENVIO</h2>
-                <form className="form-grid" onSubmit={(e) => { e.preventDefault(); setStep(2); }}>
+                <form 
+                  className="form-grid" 
+                  onSubmit={(e) => { 
+                    e.preventDefault(); 
+                    setCustomerInfo(formData); // Salva os dados REAIS no Contexto antes de mudar de passo
+                    setStep(2); 
+                  }}
+                >
+                  {/* NOME COMPLETO */}
                   <div className="form-group full">
-                    <label>NOME COMPLETO *</label>
-                    <input type="text" placeholder="Carlos Oliveira" required />
+                    <label>NOME COMPLETO *</label>  
+                    <input 
+                      type="text" 
+                      value={formData.nome} 
+                      onChange={(e) => setFormData({...formData, nome: e.target.value})} 
+                      placeholder="Carlos da Silva" 
+                      required 
+                    />
                   </div>
+
+                  {/* E-MAIL */}
                   <div className="form-group full">
                     <label>E-MAIL *</label>
-                    <input type="email" placeholder="carlos.oliveira@email.com" required />
+                    <input 
+                      type="email" 
+                      value={formData.email} 
+                      onChange={(e) => setFormData({...formData, email: e.target.value})} // Alterado para 'email'
+                      placeholder="carlos.oliveira@email.com" 
+                      required 
+                    />
                   </div>
+
+                  {/* ENDEREÇO */}
                   <div className="form-group">
                     <label>ENDEREÇO *</label>
-                    <input type="text" placeholder="Rua Exemplo, 123" required />
+                    <input 
+                      type="text" 
+                      value={formData.endereco} 
+                      onChange={(e) => setFormData({...formData, endereco: e.target.value})} // Alterado para 'endereco'
+                      placeholder="Rua Exemplo, 123" 
+                      required 
+                    />
                   </div>
+
+                  {/* CIDADE */}
                   <div className="form-group">
                     <label>CIDADE *</label>
-                    <input type="text" placeholder="São Paulo" required />
+                    <input 
+                      type="text" 
+                      value={formData.cidade} 
+                      onChange={(e) => setFormData({...formData, cidade: e.target.value})} // Alterado para 'cidade'
+                      placeholder="São Paulo" 
+                      required 
+                    />
                   </div>
+
+                  {/* CEP */}
                   <div className="form-group">
                     <label>CEP *</label>
-                    <input type="text" placeholder="01000-000" required />
+                    <input 
+                      type="text" 
+                      value={formData.cep} 
+                      onChange={(e) => setFormData({...formData, cep: e.target.value})} // Alterado para 'cep'
+                      placeholder="01000-000" 
+                      required 
+                    />
                   </div>
+
+                  {/* TELEFONE */}
                   <div className="form-group">
                     <label>TEL *</label>
-                    <input type="text" placeholder="(11) 91234-5678" required />
+                    <input 
+                      type="text" 
+                      value={formData.telefone} // Corrigido o erro de sintaxe
+                      onChange={(e) => setFormData({...formData, telefone: e.target.value})} // Alterado para 'telefone'
+                      placeholder="(11) 91234-5678" 
+                      required 
+                    />
                   </div>
+
                   <button type="submit" className="btn-checkout-next">
                     CONTINUAR PARA ENTREGA
                   </button>
