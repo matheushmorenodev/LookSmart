@@ -1,37 +1,46 @@
 import React, { useState, useEffect } from 'react';
-import { Truck, RotateCcw, ShieldCheck, Info } from 'lucide-react';
-import { Footer } from '../components/layout/Footer';
-import '../styles/ProductDetail.css';
-import { useCart } from '../context/CartContext';
-
 import { useParams, useNavigate } from 'react-router-dom';
-const PRODUCT_IMAGES = [
-  "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800",
-  "https://images.unsplash.com/photo-1598808503744-3ede29946011?w=800",
-];
+import { Truck, RotateCcw, ShieldCheck } from 'lucide-react';
+import { Footer } from '../components/layout/Footer';
+import { useCart } from '../context/CartContext';
+import { MOCK_PRODUCTS } from '../data/products'; 
+import '../styles/ProductDetail.css';
 
 export default function ProductDetail() {
-  const [selectedImage, setSelectedImage] = useState(PRODUCT_IMAGES[0]);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [selectedSize, setSelectedSize] = useState('P');
-  const [activeTab, setActiveTab] = useState('desc');
-  const { addToCart } = useCart();
+  const { id } = useParams();
   const navigate = useNavigate();
+  const { addToCart } = useCart();
 
-  // Objeto do produto para o carrinho
-  const currentProduct = {
-    id: 1, // No futuro, isso virá do useParams()
-    name: "Tailored Blazer",
-    price: 720.00,
-    imageUrl: selectedImage,
-  };
+  // Buscando o produto dinamicamente pelo ID
+  const product = MOCK_PRODUCTS.find(p => p.id === Number(id));
+
+  const [selectedImage, setSelectedImage] = useState('');
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [selectedSize, setSelectedSize] = useState('');
+  const [activeTab, setActiveTab] = useState('desc');
+  
+  // Sincronizando dados do produto quando o componente carrega
+  useEffect(() => {
+    if (product) {
+      setSelectedImage(product.imageUrl);
+      setSelectedSize(product.sizes[0]);
+    }
+  }, [product]);
+  
+  if (!product) {
+    return (
+      <div className="product-not-found">
+        <h2>Produto não encontrado</h2>
+        <button onClick={() => navigate('/catalog')}>Voltar ao Catálogo</button>
+      </div>
+    );
+  }
 
   const handleAddToCart = () => {
-    addToCart(currentProduct, selectedSize); // 3. Dispara a adição
+    addToCart(product, selectedSize);
     navigate('/cart');
   };
 
-  // Gatilho de animação ao trocar imagem
   const handleImageChange = (img: string) => {
     if (img !== selectedImage) {
       setIsAnimating(true);
@@ -52,37 +61,52 @@ export default function ProductDetail() {
         {/* Galeria com Animação */}
         <div className="image-gallery">
           <div className="thumbnails">
-            {PRODUCT_IMAGES.map((img, idx) => (
-              <img 
-                key={idx}
-                src={img} 
-                className={`thumb-item ${selectedImage === img ? 'active' : ''}`}
-                onClick={() => handleImageChange(img)}
-                alt={`Thumbnail ${idx}`}
-              />
-            ))}
+            {/* Caso tenha mais imagens no futuro, aqui faríamos um map */}
+            <img 
+              src={product.imageUrl} 
+              className={`thumb-item active`}
+              alt="Thumbnail"
+              onClick={() => handleImageChange(product.imageUrl)}
+            />
           </div>
-          <img 
-            src={selectedImage} 
-            className={`main-image ${isAnimating ? 'animate' : ''}`} 
-            alt="Tailored Blazer" 
-          />
+          <div className="main-image-wrapper">
+            <img 
+              src={selectedImage} 
+              className={`main-image ${isAnimating ? 'animate' : ''}`} 
+              alt={product.name} 
+            />
+          </div>
         </div>
 
-        {/* Informações de Compra */}
+        {/* Informações de Compra Dinâmicas */}
         <div className="product-info-side">
-          <h1 className="text-3xl font-medium mb-2">Tailored Blazer</h1>
-          <p className="price-tag font-light text-2xl mb-6">R$ 720,00</p>
+          <h1 className="text-3xl font-medium mb-2">{product.name}</h1>
+          
+          {/* Container de Preço com Lógica de Promoção */}
+          <div className="price-tag-container mb-6">
+            <span className="price-tag font-medium text-2xl">
+              R$ {product.price.toFixed(2).replace('.', ',')}
+            </span>
+            {product.oldPrice && (
+              <>
+                <span className="text-gray-400 line-through ml-3 text-lg">
+                  R$ {product.oldPrice.toFixed(2).replace('.', ',')}
+                </span>
+                <span className="ml-3 text-xs font-bold text-[#D4C3A3]">
+                  {Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)}% OFF
+                </span>
+              </>
+            )}
+          </div>
           
           <p className="description-short text-gray-500 text-sm leading-relaxed mb-8">
-            Elegant and timeless navy blue blazer with a slim fit, 
-            crafted from premium wool, featuring gold buttons.
+            {product.description}
           </p>
 
           <div className="size-selector mb-8">
             <h3 className="text-xs font-bold tracking-widest mb-4">TAMANHO</h3>
             <div className="size-options flex gap-3">
-              {['P', 'M', 'G', 'GG'].map(size => (
+              {product.sizes.map(size => (
                 <button 
                   key={size} 
                   className={`size-btn ${selectedSize === size ? 'active' : ''}`}
@@ -94,12 +118,13 @@ export default function ProductDetail() {
             </div>
           </div>
 
-            <button 
-              className="btn-add-cart py-4 bg-[#D4C3A3] font-semibold tracking-widest hover:brightness-95 transition-all"
-              onClick={handleAddToCart}
-              >
-              ADICIONAR AO CARRINHO
-            </button>
+          <button 
+            className="btn-add-cart py-4 bg-[#D4C3A3] font-semibold tracking-widest hover:brightness-95 transition-all"
+            onClick={handleAddToCart}
+          >
+            ADICIONAR AO CARRINHO
+          </button>
+
           <div className="benefits mt-8 space-y-4">
             <div className="flex items-center gap-3 text-sm text-gray-700"><Truck size={18}/> Frete grátis acima de R$200</div>
             <div className="flex items-center gap-3 text-sm text-gray-700"><RotateCcw size={18}/> Devolução gratuita em até 30 dias</div>
@@ -108,7 +133,7 @@ export default function ProductDetail() {
         </div>
       </div>
 
-      {/* Conteúdo das Abas Refinado */}
+      {/* Conteúdo das Abas Dinâmico */}
       <section className="tabs-section border-t border-gray-100 mt-20 pt-10 px-20 max-w-[1200px] mx-auto">
         <div className="tabs-header flex gap-10 border-b border-gray-50 mb-8">
           {['desc', 'det', 'env'].map((tab) => (
@@ -125,17 +150,18 @@ export default function ProductDetail() {
         <div className="tab-content pb-20">
           {activeTab === 'desc' && (
             <p className="text-gray-600 leading-relaxed max-w-2xl">
-              A sophisticated navy blazer with a double-breasted design. Made from premium wool blend. 
-              Features a slim fit, peak lapel, two gold buttons on each sleeve, and a double-button front closure.
+              {product.description}
             </p>
           )}
 
           {activeTab === 'det' && (
             <div className="specs-grid">
-              <span className="spec-label">Composição</span><span className="spec-value">100% Lã fria premium italiana</span>
-              <span className="spec-label">Forro</span><span className="spec-value">100% Acetato de seda</span>
-              <span className="spec-label">Botões</span><span className="spec-value">Metal banhado a ouro 18k</span>
-              <span className="spec-label">Cuidado</span><span className="spec-value">Apenas lavagem a seco profissional</span>
+              {product.details.map((detail, index) => (
+                <React.Fragment key={index}>
+                  <span className="spec-label">{detail.label}</span>
+                  <span className="spec-value">{detail.value}</span>
+                </React.Fragment>
+              ))}
             </div>
           )}
 
@@ -159,6 +185,7 @@ export default function ProductDetail() {
           )}
         </div>
       </section>
+
     </div>
   );
 }

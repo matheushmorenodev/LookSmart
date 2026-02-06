@@ -238,3 +238,42 @@
   letter-spacing: 2px;
   color: #1a1a1a;
 }
+/* src/styles/Catalog.css */
+
+.product-info h4 {
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 6px;
+  color: #1a1a1a;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.price-container {
+  display: flex;
+  align-items: center; /* Mantém tudo na mesma linha */
+  gap: 10px; /* Espaçamento entre os preços */
+}
+
+.current-price {
+  font-size: 16px;
+  font-weight: 600; /* Semibold conforme solicitado */
+  color: #000;
+}
+
+.old-price {
+  font-size: 13px;
+  color: #a0a0a0; /* Cinza claro */
+  text-decoration: line-through; /* Efeito riscado */
+  font-weight: 400;
+}
+
+.discount-tag {
+  font-size: 10px;
+  font-weight: 700;
+  color: #D4C3A3; /* Usando o bege da marca para ser discreto */
+  letter-spacing: 1px;
+  background-color: #f9f9f9;
+  padding: 2px 6px;
+  border-radius: 2px;
+}

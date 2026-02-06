@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect , type ReactNode } from 'react';
 
 // tipagem das informações que o usuario digitar
 interface CustomerInfo {
@@ -18,7 +18,7 @@ interface CartItem {
   imageUrl: string;
   quantity: number;
 }
-
+// tipagem do 
 interface CartContextType {
   cart: any[];
   customerInfo: CustomerInfo | null;
@@ -34,14 +34,26 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [cart, setCart] = useState<CartItem[]>([]);
-  const [customerInfo, setCustomerInfo] = useState<CustomerInfo | null>(null);
+  // 1. Inicialização: Tenta carregar do LocalStorage ou inicia vazio
+  const [cart, setCart] = useState<CartItem[]>(() => {
+    const savedCart = localStorage.getItem('looksmart_cart');
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
 
+  const [customerInfo, setCustomerInfo] = useState<CustomerInfo | null>(() => {
+    const savedInfo = localStorage.getItem('looksmart_customer');
+    return savedInfo ? JSON.parse(savedInfo) : null;
+  });
 
-  // 2. Implemente a função que zera o estado
-  const clearCart = () => {
-    setCart([]);
-  };
+  // 2. Persistência: Sempre que o 'cart' mudar, salva no LocalStorage
+  useEffect(() => {
+    localStorage.setItem('looksmart_cart', JSON.stringify(cart));
+  }, [cart]);
+
+  // 3. Persistência: Sempre que o 'customerInfo' mudar, salva no LocalStorage
+  useEffect(() => {
+    localStorage.setItem('looksmart_customer', JSON.stringify(customerInfo));
+  }, [customerInfo]);
 
 
   const addToCart = (product: any, size: string) => {
@@ -55,6 +67,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       }
       return [...prev, { ...product, size, quantity: 1 }];
     });
+  };
+
+  const clearCart = () => {
+    setCart([]);
+    // Opcional: manter o customerInfo para futuras compras ou limpar também
+    // localStorage.removeItem('looksmart_customer'); 
   };
 
   const removeFromCart = (id: number, size: string) => {

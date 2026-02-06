@@ -1,40 +1,33 @@
-/* src/styles/Navbar.css */
 .navbar-standard {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 50px;
-  background-color: #fff;
-  border-bottom: 1px solid #f5f5f5;
-  position: sticky;
-  top: 0;
+  /* Aumentamos o padding lateral para os ícones não encostarem na borda */
+  padding: 30px 80px; 
   z-index: 1000;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box; /* Garante que o padding não "empurre" a largura para fora */
 }
 
 .nav-logo {
-  font-size: 24px;
-  font-weight: 800;
-  letter-spacing: -1px;
-  text-decoration: none;
-  color: #000;
+  font-size: 20px;
+  letter-spacing: 4px;
+  font-weight: 700;
 }
-
 .nav-menu {
   display: flex;
   gap: 30px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
 }
 
 .nav-link {
-  text-decoration: none;
-  color: #1a1a1a;
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
-  transition: color 0.2s;
+  letter-spacing: 2px;
+  font-weight: 500;
 }
 
 .nav-link:hover {
@@ -45,11 +38,12 @@
   color: #000;
   font-weight: 700;
 }
-
+/* Container dos icones*/
 .nav-actions {
   display: flex;
-  gap: 20px;
   align-items: center;
+  gap: 25px; /* Espaço entre lupa, perfil e sacola */
+  margin-right: 10px; /* Margem extra para afastar da borda absoluta do navegador */
 }
 
 .nav-icon {
@@ -60,4 +54,101 @@
 
 .nav-icon:hover {
   transform: scale(1.1);
+}
+
+.navbar-standard {
+  position: fixed; /* Fixa no topo para sobrepor a imagem */
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  z-index: 1000;
+  transition: all 0.4s ease-in-out; /* Transição suave de cor */
+}
+
+/* Estado Inicial (Misturado com a Hero) */
+.navbar-standard.is-transparent {
+  background-color: transparent;
+}
+
+.navbar-standard.is-transparent .nav-icon {
+  color: #fff;
+}
+.navbar-standard.is-transparent .nav-logo,
+.navbar-standard.is-transparent .nav-link,
+.navbar-standard.is-transparent .nav-icon {
+  color: #FFFFFF; /* Branco para destacar no preto da sua tela */
+}
+
+
+/* Estado ao Rolar (Sólido) */
+.navbar-standard.is-solid {
+  background-color: rgba(255, 255, 255, 0.98);
+  padding: 18px 80px; 
+  box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+  backdrop-filter: blur(8px);
+}
+.navbar-standard.is-solid .nav-logo,
+.navbar-standard.is-solid .nav-link,
+.navbar-standard.is-solid .nav-icon {
+  color: #000000;
+}
+
+/* Ajuste do Carrinho para não ser cortado */
+.bag-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-right: 5px; /* Espaço para o badge não sumir */
+}
+
+.bag-count-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px; /* Ajuste fino para o número da sacola aparecer inteiro */
+  background-color: #D4C3A3;
+  color: #000;
+  font-size: 9px;
+  font-weight: 800;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Estilo do Carrinho */
+.nav-bag-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.navbar-standard ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.navbar-standard a {
+  text-decoration: none;
+}
+
+/* Seções da Navbar */
+.nav-section-left, 
+.nav-section-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.nav-section-center {
+  flex: 1.5;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-section-right {
+  justify-content: flex-end;
 }
