@@ -1,0 +1,159 @@
+/* --- 1. Estrutura e Grid --- */
+.profile-page-wrapper {
+  max-width: 1200px;
+  margin: 120px auto;
+  padding: 0 40px;
+  min-height: 80vh;
+}
+
+.main-page-title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 400;
+  margin-bottom: 60px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.profile-main-layout {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+/* --- 2. Sidebar Refinada --- */
+.profile-sidebar {
+  position: sticky;
+  top: 100px;
+}
+
+.sidebar-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #333;
+  text-transform: uppercase;
+}
+
+.profile-menu {
+  list-style: none;
+  padding: 0;
+}
+
+.profile-menu li {
+  padding: 18px 20px;
+  font-size: 13px;
+  color: #999;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-left: 2px solid transparent;
+  text-transform: uppercase;
+}
+
+.profile-menu li.active {
+  background-color: #FBF9F7;
+  color: #D4C3A3;
+  border-left: 2px solid #D4C3A3;
+  font-weight: 600;
+}
+
+.logout-btn {
+  color: #c0392b !important; /* Toque de cor para saída */
+}
+
+/* --- 3. Identidade e Cards --- */
+.profile-identity-header {
+  text-align: center;
+  margin-bottom: 50px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #f9f9f9;
+}
+
+.profile-avatar-placeholder {
+  width: 110px;
+  height: 110px;
+  background-color: #FBF9F7;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  border: 1px solid #eee;
+}
+
+.profile-card, .order-item-card, .account-info-card {
+  position: relative;
+  background: #fff;
+  border: 1px solid #eee;
+  padding: 40px;
+  margin-bottom: 30px;
+  border-radius: 2px;
+}
+
+/* --- 4. Botões de Ação (Bege Sólido) --- */
+.btn-view-order-beige, 
+.btn-profile-action,
+.btn-view-order-beige-inline {
+  background-color: #D4C3A3 !important;
+  color: #fff !important;
+  border: none !important;
+  padding: 14px 28px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.btn-profile-action {
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Alinhamento específico para os botões na aba Minha Conta */
+.btn-view-order-beige-inline {
+  display: block;
+  margin-top: 25px;
+  width: fit-content;
+}
+
+/* --- 5. Botão Editar (Design Link Refinado) --- */
+.btn-edit-link-refined, 
+.btn-edit-text {
+  background: none !important;
+  border: none !important;
+  color: #D4C3A3 !important;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 0;
+  border-bottom: 1px solid transparent;
+}
+
+.btn-edit-link-refined:hover, .btn-edit-text:hover {
+  border-bottom: 1px solid #D4C3A3;
+}
+
+/* --- 6. Benefícios do Rodapé --- */
+.profile-footer-benefits {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin-top: 80px;
+  padding: 40px 0;
+  border-top: 1px solid #eee;
+}
+
+.benefit {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}

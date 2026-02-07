@@ -1,0 +1,157 @@
+/* src/styles/Login.css */
+
+.login-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100px 20px;
+  background-color: #fff;
+  min-height: 80vh; /* Garante que a página tenha altura para o formulário aparecer */
+}
+
+/* Abas */
+.auth-tabs-nav {
+  display: flex;
+  gap: 80px;
+  margin-bottom: 50px;
+  border-bottom: 1px solid #f0f0f0;
+  width: 100%;
+  max-width: 550px;
+  justify-content: center;
+}
+
+.auth-tab-btn {
+  background: none;
+  border: none;
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: #ccc;
+  padding-bottom: 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-transform: uppercase;
+}
+
+.auth-tab-btn.active {
+  color: #D4C3A3; /* Bege da marca */
+  border-bottom: 2px solid #D4C3A3;
+  font-weight: 500;
+}
+
+/* Box Principal */
+.auth-card-box {
+  width: 100%;
+  max-width: 550px;
+  padding: 60px;
+  background-color: #fbfbfb; /* Cinza bem claro para destacar do fundo */
+  border: 1px solid #f0f0f0;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.auth-card-title {
+  font-size: 16px;
+  letter-spacing: 3px;
+  margin-bottom: 40px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+/* Formulário */
+.auth-input-group {
+  text-align: left;
+  margin-bottom: 25px;
+}
+
+.auth-input-group label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.auth-input-group input {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #eee;
+  background-color: #fff;
+  font-size: 13px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.auth-submit-btn {
+  width: 100%;
+  padding: 18px;
+  background-color: #D4C3A3;
+  border: none;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  cursor: pointer;
+  margin-top: 10px;
+  text-transform: uppercase;
+}
+
+.forgot-password-txt {
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: #999;
+  margin: 25px 0;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+}
+
+/* Divisor */
+.auth-divider-line {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.auth-divider-line::before, .auth-divider-line::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: #eee;
+}
+
+.auth-divider-line span {
+  padding: 0 15px;
+  color: #999;
+  font-size: 11px;
+}
+
+/* Google Button */
+.google-login-btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #fff;
+  border: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 13px;
+  cursor: pointer;
+  margin-bottom: 40px;
+}
+
+.google-login-btn img {
+  width: 16px;
+}
+
+.auth-switch-footer {
+  font-size: 12px;
+  color: #666;
+}
+
+.auth-switch-footer span {
+  color: #D4C3A3;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 5px;
+}

@@ -37,7 +37,9 @@ export const Navbar = () => {
       <div className="nav-section-right">
         <div className="nav-actions">
           <Search size={20} className="nav-icon" />
-          <User size={20} className="nav-icon" />
+          <Link to="/login" className="nav-icon">
+            <User size={20} />
+          </Link>
           <Link to="/cart" className="bag-link">
             <ShoppingBag size={20} className="nav-icon" />
             {cartCount > 0 && <span className="bag-count-badge">{cartCount}</span>}
