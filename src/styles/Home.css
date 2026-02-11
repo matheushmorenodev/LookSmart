@@ -153,6 +153,50 @@
   object-fit: cover;
 }
 
+/* Botão Principal do Produto */
+.product-action-button {
+  width: 100%;
+  background-color: #D4C3A3 !important; /* Bege LOOKSMART */
+  color: #FFFFFF !important;
+  border: none;
+  padding: 15px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  border-radius: 0; /* Design minimalista quadrado */
+  
+  /* Efeito de sombra para sofisticação */
+  box-shadow: 0 4px 0px #bca683; 
+}
+
+.product-btn-name {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.product-btn-price {
+  font-size: 11px;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+/* Efeito de Hover e Clique */
+.product-action-button:hover {
+  background-color: #c4b393 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0px #bca683;
+}
+
+.product-action-button:active {
+  transform: translateY(2px);
+  box-shadow: 0 0px 0px #bca683;
+}
+
 .badge-sale-home {
   position: absolute;
   top: 15px;
@@ -264,6 +308,38 @@
 
 .btn-ai-start:hover {
   background-color: #c4b393;
+}
+
+/* Botão Minimalista de Alto Padrão */
+.product-action-button-luxury {
+  width: 100%;
+  background-color: #D4C3A3 !important;
+  color: #FFFFFF !important;
+  border: none;
+  padding: 18px 10px; /* Aumentado para dar mais imponência ao nome */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  letter-spacing: 2.5px; /* Espaçamento maior para um ar mais editorial */
+  border-radius: 0;
+  
+  /* Mantendo a sombra sólida que discutimos para o efeito premium */
+  box-shadow: 0 4px 0px #bca683; 
+}
+
+.product-btn-name {
+  font-size: 11px; /* Ligeiramente menor para ser mais discreto e elegante */
+  font-weight: 600;
+}
+
+/* Efeito de elevação refinado */
+.product-action-button-luxury:hover {
+  background-color: #c4b393 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0px #bca683;
 }
 
 /* Efeito de Revelação (Louis Vuitton Style) */

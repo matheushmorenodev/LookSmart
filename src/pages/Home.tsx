@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight, MessageSquare } from 'lucide-react';
 import { MOCK_PRODUCTS } from '../data/products';
 import { Footer } from '../components/layout/Footer';
 import '../styles/Home.css';
 
 export default function Home() {
+  const navigate = useNavigate();
   const newArrivals = MOCK_PRODUCTS.filter(p => p.isNew).slice(0, 4);
+
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -16,16 +18,13 @@ export default function Home() {
       });
     }, { threshold: 0.1 });
 
-    // Observa todas as seções com a classe 'reveal'
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    
     return () => observer.disconnect();
   }, []);
 
-
   return (
     <div className="home-wrapper">
-      {/* 1. Hero Section: Impacto Editorial */}
+      {/* 1. Hero Section */}
       <section className="hero-section">
         <div className="hero-content">
           <span className="hero-subtitle">NEW COLLECTION 2026</span>
@@ -42,7 +41,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. Vitrine Dinâmica: New Arrivals */}
+      {/* 2. Vitrine Dinâmica: New Arrivals com Botão de Luxo */}
       <section className="featured-products">
         <div className="section-header">
           <h2>NEW ARRIVALS</h2>
@@ -51,26 +50,31 @@ export default function Home() {
         
         <div className="products-grid-home">
           {newArrivals.map(product => (
-            <div key={product.id} className="product-card-home">
-              <Link to={`/product/${product.id}`}>
+            <div key={product.id} className="product-card-home reveal">
+              {/* O Link envolve a imagem */}
+              <Link to={`/product/${product.id}`} className="product-link-wrapper">
                 <div className="product-img-home">
                   <img src={product.imageUrl} alt={product.name} />
                 </div>
-                <div className="product-details-home">
-                  <h4>{product.name}</h4>
-                  <p>R$ {product.price.toFixed(2).replace('.', ',')}</p>
-                </div>
               </Link>
+
+              {/* Botão de Ação: Nome e Preço unificados */}
+              <button 
+                className="product-action-button-luxury"
+                onClick={() => navigate(`/product/${product.id}`)}
+              >
+                {/* Removido o R$ para focar na sofisticação editorial */}
+                <span className="product-btn-name">{product.name}</span>
+              </button>
             </div>
           ))}
         </div>
       </section>
 
-      {/* 3. Seção do Assistente de Estilo (Futura IA) */}
+      {/* 3. Seção do Assistente de Estilo */}
       <section className="ai-assistant-banner">
         <div className="ai-container">
           <div className="ai-visual-side">
-            {/* Representação visual do chat da imagem */}
             <div className="chat-preview-card">
               <div className="chat-msg user">Gostaria de algo para um casamento...</div>
               <div className="chat-msg bot">
@@ -93,6 +97,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      
     </div>
   );
 }

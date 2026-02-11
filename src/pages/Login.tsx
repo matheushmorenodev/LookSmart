@@ -3,33 +3,48 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import '../styles/Login.css';
 
-
 export default function Login() {
-  const [activeTab, setActiveTab] = useState<'login' | 'register'>('login');
-  const [email, setEmail] = useState('');  // estado para o email
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [nome, setNome] = useState('');
+  
   const { login } = useAuth();
-  const [password, setPassword] = useState(''); // Estado para a senha
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simula o login com o e-mail digitado
-    login(email); 
-    navigate('/profile');
+    
+    // Simula a lógica de Autenticação/Cadastro
+    if (authMode === 'register') {
+      // No fluxo de cadastro, enviamos o e-mail para o mock e ele redireciona 
+      // para o Profile, que abrirá na aba 'conta' (Completar Cadastro)
+      login(email); 
+      navigate('/profile');
+    } else {
+      // No fluxo de login normal, ele também vai para o profile
+      const success = login(email);
+      if (success) {
+        navigate('/profile');
+      } else {
+        alert("Usuário não encontrado. Use o e-mail do mock.");
+      }
+    }
   };
 
   return (
     <div className="login-page-container">
+      {/* Navegação entre Entrar e Criar Conta */}
       <div className="auth-tabs-nav">
         <button 
-          className={`auth-tab-btn ${activeTab === 'login' ? 'active' : ''}`}
-          onClick={() => setActiveTab('login')}
+          className={`auth-tab-btn ${authMode === 'login' ? 'active' : ''}`}
+          onClick={() => setAuthMode('login')}
         >
           ENTRAR
         </button>
         <button 
-          className={`auth-tab-btn ${activeTab === 'register' ? 'active' : ''}`}
-          onClick={() => setActiveTab('register')}
+          className={`auth-tab-btn ${authMode === 'register' ? 'active' : ''}`}
+          onClick={() => setAuthMode('register')}
         >
           CRIAR CONTA
         </button>
@@ -37,14 +52,21 @@ export default function Login() {
 
       <div className="auth-card-box">
         <h2 className="auth-card-title">
-          {activeTab === 'login' ? 'ENTRAR' : 'CRIAR CONTA'}
+          {authMode === 'login' ? 'ENTRAR' : 'CRIAR CONTA'}
         </h2>
         
         <form className="auth-form" onSubmit={handleSubmit}>
-          {activeTab === 'register' && (
+          {/* Campo NOME exclusivo para o Cadastro */}
+          {authMode === 'register' && (
             <div className="auth-input-group">
               <label>NOME COMPLETO *</label>
-              <input type="text" placeholder="Digite seu nome" required />
+              <input 
+                type="text" 
+                placeholder="Digite seu nome completo" 
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+                required 
+              />
             </div>
           )}
 
@@ -52,8 +74,8 @@ export default function Login() {
             <label>E-MAIL *</label>
             <input 
               type="email" 
-              value={email} 
-              onChange={(e) => setEmail(e.target.value)} 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Digite seu e-mail" 
               required 
             />
@@ -71,21 +93,18 @@ export default function Login() {
           </div>
 
           <button type="submit" className="auth-submit-btn">
-            {activeTab === 'login' ? 'ENTRAR' : 'CADASTRAR'}
+            {authMode === 'login' ? 'ENTRAR' : 'CADASTRAR'}
           </button>
         </form>
-
-        {activeTab === 'login' && (
-          <button className="forgot-password-txt">Esqueceu a senha ?</button>
-        )}
 
         <div className="auth-divider-line">
           <span>ou</span>
         </div>
 
+        {/* Botão Google (Design Refinado) */}
         <button className="google-login-btn">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" />
-          Continuar com Google
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" />
+          <span>Continuar com Google</span>
         </button>
       </div>
     </div>

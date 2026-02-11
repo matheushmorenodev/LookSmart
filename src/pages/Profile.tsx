@@ -9,7 +9,9 @@ import '../styles/Profile.css';
 export default function Profile() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('visao-geral');
+  
+  // Fluxo inicial: Direto para 'conta' para completar o cadastro
+  const [activeTab, setActiveTab] = useState('conta');
 
   useEffect(() => {
     if (!user) navigate('/login');
@@ -22,23 +24,31 @@ export default function Profile() {
       <div className="profile-page-header">
         <h1 className="main-page-title">
           {activeTab === 'pedidos' ? 'Meus Pedidos' : 
-           activeTab === 'conta' ? 'Minha Conta' : 'Meu Perfil'}
+           activeTab === 'conta' ? 'Completar Cadastro' : 'Meu Perfil'}
         </h1>
       </div>
 
       <div className="profile-main-layout">
+        {/* Sidebar Esquerda */}
         <aside className="profile-sidebar">
           <h3 className="sidebar-label">MEU PERFIL</h3>
           <ul className="profile-menu">
-            <li className={activeTab === 'visao-geral' ? 'active' : ''} onClick={() => setActiveTab('visao-geral')}>Visão Geral</li>
-            <li className={activeTab === 'pedidos' ? 'active' : ''} onClick={() => setActiveTab('pedidos')}>Meus Pedidos</li>
-            <li className={activeTab === 'conta' ? 'active' : ''} onClick={() => setActiveTab('conta')}>Minha Conta</li>
+            <li className={activeTab === 'visao-geral' ? 'active' : ''} onClick={() => setActiveTab('visao-geral')}>
+              Visão Geral
+            </li>
+            <li className={activeTab === 'pedidos' ? 'active' : ''} onClick={() => setActiveTab('pedidos')}>
+              Meus Pedidos
+            </li>
+            <li className={activeTab === 'conta' ? 'active' : ''} onClick={() => setActiveTab('conta')}>
+              Minha Conta
+            </li>
             <li className="logout-btn" onClick={() => { logout(); navigate('/login'); }}>Sair</li>
           </ul>
         </aside>
 
         <main className="profile-content">
-          {/* ABA: VISÃO GERAL - Layout Limpo e Centralizado */}
+          
+          {/* 1. ABA: VISÃO GERAL (Resumo de Identidade) */}
           {activeTab === 'visao-geral' && (
             <div className="profile-tab-box">
               <h2 className="content-subtitle">VISÃO GERAL</h2>
@@ -58,34 +68,34 @@ export default function Profile() {
                   </div>
                   <input type="text" defaultValue={user.nome} className="luxury-input" />
                 </div>
-                <div className="input-group">
-                  <label>SENHA *</label>
-                  <input type="password" placeholder="Digite a nova senha" className="luxury-input" />
-                </div>
-                <div className="input-group">
-                  <label>CONFIRMAR SENHA *</label>
-                  <input type="password" placeholder="Confirme a nova senha" className="luxury-input" />
-                </div>
-                <button type="submit" className="btn-main-beige">ALTERAR INFORMAÇÕES</button>
+                <button type="submit" className="btn-main-beige">SALVAR ALTERAÇÕES</button>
               </form>
             </div>
           )}
 
-          {/* ABA: MEUS PEDIDOS - Grid de Cards */}
+          {/* ABA: MEUS PEDIDOS */}
           {activeTab === 'pedidos' && (
-            <div className="profile-tab-box">
+            <div className="orders-section">
               <h2 className="content-subtitle">Meus Pedidos</h2>
               <div className="orders-grid">
                 {MOCK_ORDERS.map((order) => (
                   <div key={order.id} className="order-item-card">
+                    
+                    {/* 1. Cabeçalho Principal: Pedido e Status separados */}
                     <div className="order-header">
                       <span className="order-id">Pedido {order.number}</span>
                       <span className="order-status-tag">{order.status}</span>
                     </div>
+
+                    {/* 2. Sub-cabeçalho: Data e Botão Editar à direita */}
                     <div className="order-sub-header">
-                      <p>Data: {order.date}</p>
-                      {order.status === 'EM PROCESSAMENTO' && <button className="btn-edit-text">Editar</button>}
+                      <p className="order-date">Data: {order.date}</p>
+                      {order.status === 'EM PROCESSAMENTO' && (
+                        <button className="btn-edit-link-refined">Editar</button>
+                      )}
                     </div>
+
+                    {/* 3. Lista de Produtos */}
                     <div className="order-products-list">
                       {order.items.map((item) => (
                         <div key={item.id} className="product-row">
@@ -97,8 +107,9 @@ export default function Profile() {
                         </div>
                       ))}
                     </div>
+
                     <div className="order-footer">
-                      <button className="btn-main-beige">VISUALIZAR PEDIDO</button>
+                      <button className="btn-view-order-beige">VISUALIZAR PEDIDO</button>
                     </div>
                   </div>
                 ))}
@@ -106,39 +117,59 @@ export default function Profile() {
             </div>
           )}
 
-          {/* ABA: MINHA CONTA - Blocos de Informação */}
+          {/* 3. ABA: MINHA CONTA (Informações Complementares) */}
           {activeTab === 'conta' && (
             <div className="profile-tab-box">
-              <h2 className="content-subtitle">Minha Conta</h2>
-              <div className="account-info-card">
+              <h2 className="content-subtitle">Completar Informações</h2>
+              
+              <div className="account-info-card-flat">
                 <div className="card-header-row">
                   <h3>INFORMAÇÕES DE CONTA</h3>
                   <button className="btn-edit-text">Editar</button>
                 </div>
-                <div className="card-body">
-                  <p className="info-main">{user.nome}</p>
-                  <p className="info-sub">{user.email}</p>
-                  <p className="info-sub">{user.telefone}</p>
-                  <div className="card-action-end">
-                    <button className="btn-main-beige small">VISUALIZAR PEDIDO</button>
-                  </div>
+                <div className="card-body-simple">
+                  <p className="text-bold">{user.nome}</p>
+                  <p className="text-muted">{user.email}</p>
+                  <p className="text-muted">{user.telefone || "(11) 91234-5678"}</p>
                 </div>
               </div>
 
-              <div className="account-info-card">
+              <div className="account-info-card-flat">
                 <div className="card-header-row">
                   <h3>ENDEREÇO DE ENTREGA</h3>
                   <button className="btn-edit-text">Editar</button>
                 </div>
-                <div className="card-body">
-                  <p className="info-main">{user.nome}</p>
-                  <p className="info-sub">{user.endereco.rua}</p>
-                  <p className="info-sub">{user.endereco.cidade}, {user.endereco.estado}</p>
-                  <p className="info-sub">{user.endereco.cep}</p>
-                  <div className="card-action-end">
-                    <button className="btn-main-beige small">VISUALIZAR PEDIDO</button>
+                <div className="card-body-simple">
+                  <p className="text-bold">{user.nome}</p>
+                  <p className="text-muted">{user.endereco?.rua || "Rua Exemplo, 123"}</p>
+                  <p className="text-muted">{user.endereco?.cep || "01000-000"}</p>
+                </div>
+              </div>
+
+              {/* Seção de Segurança e Localização para finalização */}
+              <div className="security-completion-section">
+                <h3 className="section-label-small">SEGURANÇA E LOCALIZAÇÃO</h3>
+                <div className="form-row">
+                  <label>BAIRRO</label>
+                  <input type="text" placeholder="Digite o bairro" className="luxury-input" />
+                </div>
+                <div className="form-split">
+                  <div className="form-row">
+                    <label>CIDADE</label>
+                    <input type="text" placeholder="Digite a cidade" className="luxury-input" />
+                  </div>
+                  <div className="form-row">
+                    <label>UF</label>
+                    <select className="luxury-select">
+                      <option>Selecione</option>
+                      <option value="SP">SP</option>
+                      <option value="RJ">RJ</option>
+                      <option value="MG">MG</option>
+                    </select>
                   </div>
                 </div>
+                <button className="btn-main-beige full-width">FINALIZAR CADASTRO</button>
+                <button className="btn-delete-account">Remover Conta</button>
               </div>
             </div>
           )}
@@ -150,7 +181,7 @@ export default function Profile() {
         <div className="benefit"><RotateCcw size={18}/> Devolução gratuita</div>
         <div className="benefit"><ShieldCheck size={18}/> Compra segura</div>
       </div>
-      <Footer />
+      
     </div>
   );
 }
